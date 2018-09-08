@@ -18,7 +18,7 @@ terraform {
 }
 
 module "staging-infrastructure" {
-  source = "../../modules/infrastructure"
+  source      = "../../modules/infrastructure"
   environment = "${var.environment}"
 }
 
