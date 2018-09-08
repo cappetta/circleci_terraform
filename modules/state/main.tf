@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "state-file-bucket" {
-  bucket = "${var.environment}-state-file"
+  bucket = "${var.company}-${var.environment}-state-file"
 
   versioning {
     enabled = true
