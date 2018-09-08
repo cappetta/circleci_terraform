@@ -10,16 +10,15 @@ module "staging-state" {
 
 terraform {
   backend "s3" {
-    bucket  = "automatedcybersolutions"
+    bucket  = "${var.company}"
     key     = "terraform.tfstate"
-    region  = "us-west-1"
+    region  = "${var.region}"
     encrypt = true
   }
 }
 
 module "staging-infrastructure" {
   source = "../../modules/infrastructure"
-
   environment = "${var.environment}"
 }
 
