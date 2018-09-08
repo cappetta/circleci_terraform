@@ -140,4 +140,4 @@ workflows:
             - plan
           filters:
             branches:
-              only: staging
+              only: stage
