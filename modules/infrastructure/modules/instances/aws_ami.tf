@@ -13,3 +13,22 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"]
 }
+
+data "aws_ami" "kali" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["*kali-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["paravirtual"]
+  }
+
+  owners = ["679593333241"]
+}
+
+
+
