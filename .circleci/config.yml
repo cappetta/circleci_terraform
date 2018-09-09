@@ -107,6 +107,7 @@ jobs:
             cd keys
             mkdir -p ~/.ssh/
             echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> ~/.ssh/authorized_keys
+            echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
             cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:
