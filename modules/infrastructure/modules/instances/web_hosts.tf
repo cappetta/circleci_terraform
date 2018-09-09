@@ -46,7 +46,7 @@ resource "null_resource" "web" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = "${file("../../keys/circleci_terraform")}"
+    private_key = "${file("../../keys/circleci_terraform.pem")}"
     host        = "${element(aws_instance.web.*.public_ip, count.index)}"
   }
 
