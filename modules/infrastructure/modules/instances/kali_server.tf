@@ -9,7 +9,7 @@ locals {
 resource "aws_instance" "kali" {
   count = "1"
 
-  ami           = "${data.aws_ami.ubuntu.id}"
+  ami           = "${data.aws_ami.kali.id}"
   instance_type = "t2.micro"
 
   subnet_id = "${element(local.subnets_ids, count.index)}"
@@ -22,7 +22,7 @@ resource "aws_instance" "kali" {
 
   tags {
     environment = "${var.environment}"
-    name = "kali-${count.index}"
+    Name = "kali-${count.index}"
   }
 }
 
@@ -35,21 +35,16 @@ resource "null_resource" "kali" {
     private_key = "${file("../../keys/circleci_terraform")}"
     host        = "${element(aws_instance.kali.*.public_ip, count.index)}"
   }
+//
+//  provisioner "file" {
+//    content     = "${data.template_file.init.rendered}"
+//    destination = "/home/ubuntu/init.sh"
+//  }
 
-  provisioner "file" {
-    content     = "${data.template_file.init.rendered}"
-    destination = "/home/ubuntu/init.sh"
-  }
-
-  provisioner "file" {
-    content     = "${data.template_file.instance-status.rendered}"
-    destination = "/home/ubuntu/instance-status.conf"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /home/ubuntu/init.sh",
-      "sudo /home/ubuntu/init.sh",
-    ]
-  }
+//  provisioner "remote-exec" {
+//    inline = [
+//      "chmod +x /home/ubuntu/init.sh",
+//      "sudo /home/ubuntu/init.sh",
+//    ]
+//  }
 }
