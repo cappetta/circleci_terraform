@@ -104,7 +104,9 @@ jobs:
           name: terraform plan
           command: |
             source $BASH_ENV
-            cd environments/$TERRAFORM_ENVIRONMENT
+            cd keys
+            echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
+            cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:
           root: *working_directory
