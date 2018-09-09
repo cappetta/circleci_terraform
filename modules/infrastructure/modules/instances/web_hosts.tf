@@ -36,7 +36,8 @@ resource "aws_instance" "web" {
   key_name = "${aws_key_pair.circleci_key.key_name}"
 
   tags {
-    environment = "${var.environment}"
+    environment = "${var.environment}",
+    name = "web-${count.index}"
   }
 }
 

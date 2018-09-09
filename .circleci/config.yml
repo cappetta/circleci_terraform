@@ -74,7 +74,7 @@ jobs:
       - checkout
       - *set_terraform_environment
       - run:
-          name: terraform fmt
+          name: terraform format (fmt) check
           command: |
             source $BASH_ENV
             cd environments/$TERRAFORM_ENVIRONMENT
@@ -82,7 +82,6 @@ jobs:
             if [ $(terraform fmt | grep -v .terraform | tee fmt_result.txt | wc -l) -gt 0 ]; then
               echo "Format of this terraform files is not appropiate:"
               echo
-
               cat fmt_result.txt
               rm fmt_result.txt
               git checkout -- .
@@ -104,13 +103,12 @@ jobs:
           name: terraform plan
           command: |
             source $BASH_ENV
-            mkdir -p ~/.ssh/
-            echo $AWS_SSH_PUB_KEY >> ~/.ssh/authorized_keys
             cd keys
             echo '-----BEGIN RSA PRIVATE KEY-----' > circleci_terraform
             echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
             echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
             chmod 700 circleci_terraform
+            cat circleci_terraform
             cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:

@@ -22,6 +22,7 @@ resource "aws_instance" "kali" {
 
   tags {
     environment = "${var.environment}"
+    name = "kali-${count.index}"
   }
 }
 
