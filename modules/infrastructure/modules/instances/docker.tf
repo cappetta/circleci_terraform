@@ -43,7 +43,7 @@ resource "null_resource" "docker" {
       "sudo yum -y install docker",
       "sudo service docker start",
       "sudo curl -L 'https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)' -o /usr/local/bin/docker-compose",
-      "curl https://raw.githubusercontent.com/WebGoat/WebGoat/develop/docker-compose.yml | sdocker-compose -f - up"
+      "curl https://raw.githubusercontent.com/WebGoat/WebGoat/develop/docker-compose.yml | docker-compose -f - up"
     ]
   }
 }
