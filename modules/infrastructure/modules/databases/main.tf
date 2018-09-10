@@ -13,7 +13,7 @@ resource "aws_db_instance" "master" {
   storage_type         = "gp2"
   engine               = "mysql"
   engine_version       = "5.7"
-  instance_class       = "db.t2.medium"
+  instance_class       = "db.t2.micro"
   name                 = "${var.environment}"
   username             = "username"
   password             = "password"
