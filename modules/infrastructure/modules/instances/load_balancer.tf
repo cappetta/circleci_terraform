@@ -10,15 +10,10 @@ resource "aws_alb" "web" {
 }
 
 resource "aws_alb_target_group" "web" {
-  name_prefix = "web-alb-"
-  name     = "target-group"
+  name     = "web-target-group-${var.environment}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = "${var.vpc-id}"
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_alb_listener" "web" {
