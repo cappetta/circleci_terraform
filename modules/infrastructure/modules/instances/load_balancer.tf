@@ -14,6 +14,10 @@ resource "aws_alb_target_group" "web" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = "${var.vpc-id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_alb_listener" "web" {

@@ -43,7 +43,7 @@ resource "null_resource" "docker" {
       "sudo yum install -y epel-release",
       "sudo yum update -y",
       "sudo yum install -y python-pip docker",
-      "pip install docker-compose",
+      "sudo pip install docker-compose",
       "sudo service docker start",
       "curl https://raw.githubusercontent.com/WebGoat/WebGoat/develop/docker-compose.yml | sudo docker-compose -f - up",
     ]
