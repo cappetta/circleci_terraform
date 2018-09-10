@@ -7,22 +7,22 @@ locals {
 
 
 resource "aws_instance" "kali" {
-  count = "1"
+  count = "${var.kali_ct}"
 
-  ami           = "${data.aws_ami.kali.id}"
-  instance_type = "t2.micro"
+//  ami           = "${data.aws_ami.kali.id}"
+  ami           = "ami-2b99b953"
 
-  subnet_id = "${element(local.subnets_ids, count.index)}"
+  instance_type = "t2.medium"
 
-  vpc_security_group_ids = [
-    "${aws_security_group.web.id}",
-  ]
+  subnet_id = "${element(local.kali_subnets_ids, count.index)}"
+  vpc_security_group_ids = ["${aws_security_group.web.id}",]
 
   key_name = "${aws_key_pair.circleci_key.key_name}"
 
   tags {
-    environment = "${var.environment}"
     Name = "kali-${count.index}"
+    Environment = "${var.environment}"
+    Terraform = "True"
   }
 }
 
