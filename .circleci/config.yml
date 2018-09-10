@@ -62,7 +62,12 @@ apply_job: &apply_job
         command: |
           source $BASH_ENV
           cd keys
+          echo '-----BEGIN RSA PRIVATE KEY-----' > circleci_terraform
           echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
+          echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
+          chmod 700 circleci_terraform
+          cat circleci_terraform
+          cd ../environments/$TERRAFORM_ENVIRONMENT
           cd ../environments/$TERRAFORM_ENVIRONMENT
           terraform apply --auto-approve ../../terraform.plan
 
