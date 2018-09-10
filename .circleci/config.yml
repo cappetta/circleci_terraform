@@ -66,9 +66,9 @@ apply_job: &apply_job
           echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
           echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
           chmod 700 circleci_terraform
-          cat circleci_terraform
           cd ../environments/$TERRAFORM_ENVIRONMENT
           terraform apply --auto-approve ../../terraform.plan
+          mv circleci_terraform .circleci_terraform
 
 jobs:
 
@@ -112,7 +112,6 @@ jobs:
             echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
             echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
             chmod 700 circleci_terraform
-            cat circleci_terraform
             cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:
