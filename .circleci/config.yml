@@ -84,7 +84,7 @@ jobs:
             source $BASH_ENV
             cd environments/$TERRAFORM_ENVIRONMENT
 
-            if [ $(terraform fmt | grep -v .terraform | tee fmt_result.txt | wc -l) -gt 0 ]; then
+            if [ $(terraform fmt | grep -v .terraform | tee fmt_result.txt | wc -l) -gt 1 ]; then
               echo "Format of this terraform files is not appropiate:"
               echo
               cat fmt_result.txt
