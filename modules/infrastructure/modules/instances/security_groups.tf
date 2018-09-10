@@ -66,3 +66,39 @@ resource "aws_security_group" "web-alb" {
     security_groups = ["${aws_security_group.web.id}"]
   }
 }
+
+
+resource "aws_security_group" "webgoat" {
+  name = "webgoat-instances"
+  description = "Access to webgoat instances"
+  vpc_id = "${var.vpc-id}"
+
+  # terminal/ssh rule
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # terminal/ssh rule
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # outbound rules
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Terraform  = "true"
+    Name = "webgoat-instances"
+  }
+}
