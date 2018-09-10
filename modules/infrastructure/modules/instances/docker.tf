@@ -45,7 +45,7 @@ resource "null_resource" "docker" {
       "sudo yum install -y python-pip docker",
       "sudo pip install docker-compose",
       "sudo service docker start",
-      "curl https://raw.githubusercontent.com/WebGoat/WebGoat/develop/docker-compose.yml | sudo docker-compose -f - up",
+      "docker run -p 8080:8080 -t webgoat/webgoat-8.0",
     ]
   }
 }
