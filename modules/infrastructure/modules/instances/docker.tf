@@ -20,11 +20,22 @@ resource "aws_instance" "docker" {
 
   key_name = "${aws_key_pair.circleci_key.key_name}"
 
+  tags = {
+    Name      = "docker-web-apps-${count.index}"
+    Environment = "${var.environment}"
+    Terraform = "True"
+  }
+}
+
+
+resource "null_resource" "docker" {
+  count = "${var.web_count}"
+
   connection {
-    type        = "ssh"
-    user        = "centos"
+    type = "ssh"
+    user = "centos"
     private_key = "${file("../../keys/circleci_terraform")}"
-    host        = "${element(aws_instance.kali.*.public_ip, count.index)}"
+    host = "${element(aws_instance.docker.*.public_ip, count.index)}"
   }
 
   provisioner "remote-exec" {
@@ -35,13 +46,8 @@ resource "aws_instance" "docker" {
       "sudo docker run -d -p 8080:8080 webgoat/webgoat-container"
     ]
   }
-
-  tags = {
-    Name      = "docker-web-apps-${count.index}"
-    Environment = "${var.environment}"
-    Terraform = "True"
-  }
 }
+
 
 
 
