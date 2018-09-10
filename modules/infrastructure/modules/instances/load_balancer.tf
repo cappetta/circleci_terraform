@@ -10,7 +10,8 @@ resource "aws_alb" "web" {
 }
 
 resource "aws_alb_target_group" "web" {
-  name     = "web-target-group-${var.environment}"
+  name     = "-alb"
+  name_prefix     = "web-${var.environment}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = "${var.vpc-id}"
