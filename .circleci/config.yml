@@ -68,7 +68,6 @@ apply_job: &apply_job
           chmod 700 circleci_terraform
           cat circleci_terraform
           cd ../environments/$TERRAFORM_ENVIRONMENT
-          cd ../environments/$TERRAFORM_ENVIRONMENT
           terraform apply --auto-approve ../../terraform.plan
 
 jobs:
