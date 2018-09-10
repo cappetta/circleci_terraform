@@ -18,8 +18,8 @@ data "aws_ami" "kali" {
   most_recent = true
 
   filter {
-    name   = "description"
-    values = ["Kali Linux*"]
+    name   = "name"
+    values = ["kali*"]
   }
 
   filter {
@@ -27,7 +27,7 @@ data "aws_ami" "kali" {
     values = ["paravirtual"]
   }
 
-  owners = ["679593333241"]
+//  owners = ["679593333241"]
 }
 
 
