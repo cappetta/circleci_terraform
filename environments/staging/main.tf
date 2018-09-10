@@ -4,15 +4,14 @@ provider "aws" {
 
 module "staging-state" {
   source = "../../modules/state"
-
   environment = "${var.environment}"
 }
 
 terraform {
   backend "s3" {
     bucket  = "automatedcybersolutions-stage"
-    key     = "terraform.tfstate"
-    region  = "us-west-2"
+    key     = "${var.region}-terraform.tfstate"
+    region  = "${var.region}"
     encrypt = true
   }
 }
@@ -29,3 +28,8 @@ output "web-alb-dns-name" {
 output "web-instance-ips" {
   value = "${module.staging-infrastructure.web-instance-ips}"
 }
+
+//todo add kali instance ip reference
+//output "web-instance-ips" {
+//  value = "${module.staging-infrastructure.web-instance-ips}"
+//}
