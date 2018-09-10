@@ -8,6 +8,9 @@ resource "aws_subnet" "public-a" {
     name        = "public-a"
     environment = "${var.environment}"
   }
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "public-b" {
@@ -20,6 +23,10 @@ resource "aws_subnet" "public-b" {
     name        = "public-b"
     environment = "${var.environment}"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "private-a" {
@@ -31,6 +38,10 @@ resource "aws_subnet" "private-a" {
     name        = "private-a"
     environment = "${var.environment}"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_subnet" "private-b" {
@@ -41,5 +52,9 @@ resource "aws_subnet" "private-b" {
   tags {
     name        = "private-b"
     environment = "${var.environment}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
