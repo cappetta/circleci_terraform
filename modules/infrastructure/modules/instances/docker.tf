@@ -40,10 +40,10 @@ resource "null_resource" "docker" {
 
   provisioner "remote-exec" {
     inline = [
-      'yum install -y epel-release',
-      'yum update -y',
-      'yum install -y python-pip docker',
-      'pip install docker-compose',
+      "yum install -y epel-release",
+      "yum update -y",
+      "yum install -y python-pip docker",
+      "pip install docker-compose",
       "sudo service docker start",
       "curl https://raw.githubusercontent.com/WebGoat/WebGoat/develop/docker-compose.yml | sudo docker-compose -f - up",
     ]
