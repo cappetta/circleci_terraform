@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "staging-state" {
-  source = "../../modules/state"
+  source      = "../../modules/state"
   environment = "${var.environment}"
 }
 
@@ -29,7 +29,3 @@ output "web-instance-ips" {
   value = "${module.staging-infrastructure.web-instance-ips}"
 }
 
-//todo add kali instance ip reference
-//output "web-instance-ips" {
-//  value = "${module.staging-infrastructure.web-instance-ips}"
-//}
