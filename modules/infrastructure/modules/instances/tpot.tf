@@ -9,25 +9,23 @@ resource "aws_instance" "tpot" {
   count = "${var.kali_ct}"
 
   ami           = "${data.aws_ami.ubuntu.id}"
-  instance_type = "t2.micro"
+  instance_type = "t2.large"
 
   subnet_id = "${element(local.subnets_ids, count.index)}"
 
-  vpc_security_group_ids = [
-    "${aws_security_group.web.id}",
-  ]
+  vpc_security_group_ids = ["${aws_security_group.tpot.id}"]
 
   key_name = "${aws_key_pair.circleci_key.key_name}"
 
   tags {
-    Name = "web-${count.index}"
+    Name = "tpot-${count.index}"
     Environment = "${var.environment}"
     Terraform = "True"
   }
 }
 
 resource "null_resource" "tpot" {
-  count = "${var.web_count}"
+  count = "${var.kali_ct}"
 
   connection {
     type        = "ssh"
