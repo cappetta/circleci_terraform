@@ -18,4 +18,4 @@ variable "docker_instance_type" { default = "t2.micro" }
 variable "private_key" { default = "../../keys/circleci_terraform"}
 
 
-//variable "db_endpoint" {}
+variable "db_endpoint" {}
