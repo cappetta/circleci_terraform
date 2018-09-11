@@ -1,5 +1,5 @@
 locals {
-  subnets_ids = [
+  web_subnets_ids = [
     "${var.public-a-subnet-id}",
     "${var.public-b-subnet-id}",
   ]
@@ -22,31 +22,33 @@ data "template_file" "instance-status" {
 }
 
 resource "aws_instance" "web" {
-  count = "${var.count}"
+  count = "${var.web_count}"
 
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
 
-  subnet_id = "${element(local.subnets_ids, count.index)}"
+  subnet_id = "${element(local.web_subnets_ids, count.index)}"
 
   vpc_security_group_ids = [
     "${aws_security_group.web.id}",
   ]
 
-  key_name = "${aws_key_pair.id_dummy.key_name}"
+  key_name = "${aws_key_pair.circleci_key.key_name}"
 
   tags {
-    environment = "${var.environment}"
+    Name = "web-${count.index}"
+    Environment = "${var.environment}"
+    Terraform = "True"
   }
 }
 
 resource "null_resource" "web" {
-  count = "${var.count}"
+  count = "${var.web_count}"
 
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = "${file("../../.keys/id_dummy")}"
+    private_key = "${file("../../keys/circleci_terraform")}"
     host        = "${element(aws_instance.web.*.public_ip, count.index)}"
   }
 

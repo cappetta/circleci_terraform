@@ -61,8 +61,14 @@ apply_job: &apply_job
         name: terraform apply
         command: |
           source $BASH_ENV
-          cd environments/$TERRAFORM_ENVIRONMENT
+          cd keys
+          echo '-----BEGIN RSA PRIVATE KEY-----' > circleci_terraform
+          echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
+          echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
+          chmod 700 circleci_terraform
+          cd ../environments/$TERRAFORM_ENVIRONMENT
           terraform apply --auto-approve ../../terraform.plan
+          mv circleci_terraform .circleci_terraform
 
 jobs:
 
@@ -72,15 +78,14 @@ jobs:
       - checkout
       - *set_terraform_environment
       - run:
-          name: terraform fmt
+          name: terraform format (fmt) check
           command: |
             source $BASH_ENV
             cd environments/$TERRAFORM_ENVIRONMENT
 
-            if [ $(terraform fmt | grep -v .terraform | tee fmt_result.txt | wc -l) -gt 0 ]; then
+            if [ $(terraform fmt | grep -v .terraform | tee fmt_result.txt | wc -l) -gt 1 ]; then
               echo "Format of this terraform files is not appropiate:"
               echo
-
               cat fmt_result.txt
               rm fmt_result.txt
               git checkout -- .
@@ -102,7 +107,12 @@ jobs:
           name: terraform plan
           command: |
             source $BASH_ENV
-            cd environments/$TERRAFORM_ENVIRONMENT
+            cd keys
+            echo '-----BEGIN RSA PRIVATE KEY-----' > circleci_terraform
+            echo $AWS_SSH_KEY | sed -e 's/\s\+/\n/g' >> circleci_terraform
+            echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
+            chmod 700 circleci_terraform
+            cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:
           root: *working_directory
@@ -140,4 +150,4 @@ workflows:
             - plan
           filters:
             branches:
-              only: staging
+              only: stage

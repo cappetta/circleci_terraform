@@ -1,3 +1,3 @@
-environment = "staging"
-
-region = "us-west-1"
+environment = "stage"
+region = "us-west-2"
+company = "automatedcybersolutions-stage"
