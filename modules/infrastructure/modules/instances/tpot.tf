@@ -9,7 +9,7 @@ resource "aws_instance" "tpot" {
   count = "${var.kali_ct}"
 
   ami           = "${data.aws_ami.ubuntu.id}"
-  instance_type = "t2.large"
+  instance_type = "${var.tpot_instance_type}"
 
   subnet_id = "${element(local.subnets_ids, count.index)}"
 
@@ -17,10 +17,17 @@ resource "aws_instance" "tpot" {
 
   key_name = "${aws_key_pair.circleci_key.key_name}"
 
+  root_block_device {
+    volume_type = "gp2"
+    volume_size = "${var.tpot_root_vol_size}"
+    delete_on_termination = "true"
+  }
+
   tags {
     Name = "tpot-${count.index}"
     Environment = "${var.environment}"
     Terraform = "True"
+    Zombie = "True"
   }
 }
 
@@ -43,5 +50,13 @@ resource "null_resource" "tpot" {
       "sudo su",
       "./install.sh",
     ]
+  }
+}
+
+resource "null_resource" "tpot_tag_as_complete" {
+  depends_on = ["null_resource.tpot"]
+  tags {
+    Zombie = "False"
+    Complete = "True"
   }
 }
