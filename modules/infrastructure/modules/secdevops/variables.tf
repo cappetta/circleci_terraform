@@ -30,9 +30,19 @@ variable "tpot_root_vol_size" {
   default = "300"
 }
 
+variable "fbctf_root_vol_size" {
+  description = "root / boot volume size"
+  default = "30"
+}
+
 variable "tpot_user_data"{
   description = "cloud-init script to initialize the asset"
   default = "../../modules/infrastructure/cloud-init/tpot.setup.yml"
+}
+
+variable "fbctf_user_data"{
+  description = "cloud-init script to initialize the asset"
+  default = "../../modules/infrastructure/cloud-init/fbctf.setup.yml"
 }
 
 
