@@ -7,8 +7,12 @@ Master - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/m
 known issues:
     - https://github.com/hashicorp/terraform/issues/16120
 
-# circleci_terraform
-Just an unofficial fork of the terraform-with-circleci-example, slightly enhanced and expanded with SecDevOps tooling & assets.
+# Overview
+This started as an unofficial fork of the terraform-with-circleci-example
+and was slightly enhanced and expanded with SecDevOps tooling & assets.
+
+The simple goal is to create a repository of assets which aid the security
+researcher 
 
 ## Security Assets
     - docker 
