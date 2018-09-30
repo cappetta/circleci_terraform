@@ -49,6 +49,19 @@ terraform_init: &terraform_init
       cd environments/$TERRAFORM_ENVIRONMENT
       terraform init
 
+apline_setup: &apline_setup
+  run:
+    name: apline_setup
+    command: |
+      apk update
+      apk upgrade
+      apk add curl wget bash git
+      apk add ruby ruby-bundler
+      rm -rf /var/cache/apk/*
+      git clone https://github.com/inspec/inspec.git
+      gem install inspec
+
+
 apply_job: &apply_job
   <<: *default_config
   steps:
