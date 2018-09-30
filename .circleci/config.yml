@@ -104,6 +104,7 @@ apply_job: &apply_job
         name: Delete Terraform Assets
         when: on_fail
         command: |
+          cd environments/$TERRAFORM_ENVIRONMENT
           pwd
           ls
           terraform destroy -force
