@@ -53,8 +53,7 @@ terraform_init: &terraform_init
       terraform init
 
 alpine_setup: &alpine_setup
-  paths:
-    - *gitclone_dir
+  working_directory: *gitclone_dir
   run:
     name: alpine_setup
     command: |
