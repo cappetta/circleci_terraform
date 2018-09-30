@@ -71,14 +71,6 @@ apply_job: &apply_job
           terraform output -json > output.json
           mv circleci_terraform .circleci_terraform
 
-
-
-inspec-stack: &inspec-stack
-
-
-
-
-
 jobs:
 
   build:
@@ -134,6 +126,7 @@ jobs:
       - run:
           name: Inspec the AWS assets
           command: |
+            apk add bash
             curl https://omnitruck.chef.io/install.sh | bash -s -- -P inspec
             cat output.json
             mkdir aws-security/files || true
