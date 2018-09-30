@@ -60,7 +60,9 @@ alpine_setup: &alpine_setup
       apk upgrade
       apk add curl wget bash git
       apk add ruby ruby-bundler
-      apk add ruby ruby-dev make gcc libc-dev g++ ruby-rdoc aws-cli
+      apk add ruby ruby-dev make gcc libc-dev g++ ruby-rdo aws-cli python python-dev py-pip build-base
+      pip install awscli==$AWSCLI_VERSION --upgrade --user
+      apk --purge -v del py-pip
       rm -rf /var/cache/apk/*
       cd ~/github/SecDevOps
       git clone https://github.com/inspec/inspec.git
