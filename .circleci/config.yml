@@ -8,6 +8,9 @@ base_image: &base_image
 working_directory: &working_directory
   ~/github/SecDevOps/circleci_terraform
 
+gitclone_dir: &gitclone_dir
+  ~/github/SecDevOps/
+
 default_config: &default_config
   docker:
     - image: *base_image
@@ -50,6 +53,8 @@ terraform_init: &terraform_init
       terraform init
 
 alpine_setup: &alpine_setup
+  paths:
+    - *gitclone_dir
   run:
     name: alpine_setup
     command: |
@@ -58,11 +63,13 @@ alpine_setup: &alpine_setup
       apk add curl wget bash git
       apk add ruby ruby-bundler
       apk add ruby ruby-dev make gcc libc-dev g++ ruby-rdoc
+      rm -rf /var/cache/apk/*
+      cd ~/github/SecDevOps
+      git clone https://github.com/inspec/inspec.git
+      cd inspec
       gem build inspec.gemspec
       gem install inspec-*.gem
 
-      rm -rf /var/cache/apk/*
-      git clone https://github.com/inspec/inspec.git
       bundle install
 
 
