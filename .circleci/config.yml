@@ -49,9 +49,9 @@ terraform_init: &terraform_init
       cd environments/$TERRAFORM_ENVIRONMENT
       terraform init
 
-alpine_setup: &apline_setup
+alpine_setup: &alpine_setup
   run:
-    name: apline_setup
+    name: alpine_setup
     command: |
       apk update
       apk upgrade
