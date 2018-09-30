@@ -108,8 +108,8 @@ apply_job: &apply_job
         command: |
           source $BASH_ENV
           cd environments/$TERRAFORM_ENVIRONMENT
-          pwd
-          ls
+          aws s3 rm s3://automatedcybersolutions-stage
+          aws s3 rm s3://state-file-bucket
           terraform destroy -force
 
 
