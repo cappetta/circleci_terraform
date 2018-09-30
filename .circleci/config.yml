@@ -136,6 +136,7 @@ jobs:
             echo '-----END RSA PRIVATE KEY-----' >> circleci_terraform
             chmod 700 circleci_terraform
             cd ../environments/$TERRAFORM_ENVIRONMENT
+            terraform init
             terraform plan -out=../../terraform.plan
       - persist_to_workspace:
           root: *working_directory
