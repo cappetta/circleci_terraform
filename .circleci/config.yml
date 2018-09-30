@@ -74,18 +74,7 @@ apply_job: &apply_job
 
 
 inspec-stack: &inspec-stack
-    - run:
-        name: Test the deployed stack
-        command: |
-          curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
-          cat output.json
-          mkdir aws-security/files || true
-          mkdir /tmp/test-results || true
-          cp output.json aws-security/files/output.json
-          inspec detect -t aws://
-          inspec exec aws-security --reporter=cli junit:/tmp/test-results/inspec-junit.xml -t aws://us-west-2
-    - store_test_results:
-        path: /tmp/test-results
+
 
 
 
@@ -142,7 +131,18 @@ jobs:
   apply:
     <<: *apply_job
     steps:
-      - inspec-stack
+      - run:
+          name: Inspec the AWS assets
+          command: |
+            curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
+            cat output.json
+            mkdir aws-security/files || true
+            mkdir /tmp/test-results || true
+            cp output.json aws-security/files/output.json
+            inspec detect -t aws://
+            inspec exec aws-security --reporter=cli junit:/tmp/test-results/inspec-junit.xml -t aws://us-west-2
+      - store_test_results:
+          path: /tmp/test-results
   apply-with-approval:
     <<: *apply_job
 
