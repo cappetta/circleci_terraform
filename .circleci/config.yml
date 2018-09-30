@@ -136,11 +136,10 @@ jobs:
   apply:
     <<: *apply_job
     steps:
+      - *alpine_setup
       - run:
           name: Inspec the AWS assets
           command: |
-            apk add bash
-            curl https://omnitruck.chef.io/install.sh | bash -s -- -P inspec
             cat output.json
             mkdir aws-security/files || true
             mkdir /tmp/test-results || true
