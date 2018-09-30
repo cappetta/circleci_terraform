@@ -90,7 +90,7 @@ apply_job: &apply_job
           chmod 700 circleci_terraform
           cd ../environments/$TERRAFORM_ENVIRONMENT
           terraform apply --auto-approve ../../terraform.plan
-          terraform output -json > output.json
+          terraform output -json > /tmp/output.json
           mv circleci_terraform .circleci_terraform
 
 jobs:
@@ -150,10 +150,10 @@ jobs:
       - run:
           name: Inspec the AWS assets
           command: |
-            cat output.json
+            cat /tmp/output.json
             mkdir aws-security/files || true
             mkdir /tmp/test-results || true
-            cp output.json aws-security/files/output.json
+            cp /tmp/output.json aws-security/files/output.json
             inspec detect -t aws://
             inspec exec aws-security --reporter=cli junit:/tmp/test-results/inspec-junit.xml -t aws://us-west-2
       - store_test_results:
