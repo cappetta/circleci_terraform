@@ -71,6 +71,27 @@ apply_job: &apply_job
           terraform output -json > output.json
           mv circleci_terraform .circleci_terraform
 
+inspec-stack:
+    docker:
+      - image: chef/inspec:latest
+    steps:
+      - attach_workspace:
+          at: *working_directory
+      - run:
+          name: Test the deployed stack
+          command: |
+            cat output.json
+            mkdir aws-security/files || true
+            mkdir /tmp/test-results || true
+            cp output.json aws-security/files/output.json
+            inspec detect -t aws://
+            inspec exec aws-security --reporter=cli junit:/tmp/test-results/inspec-junit.xml -t aws://us-west-2
+      - store_test_results:
+          path: /tmp/test-results
+
+
+
+
 jobs:
 
   build:
@@ -122,27 +143,12 @@ jobs:
 
   apply:
     <<: *apply_job
+    steps:
+      - inspec-stack
   apply-with-approval:
     <<: *apply_job
 
-  test-test-stack:
-      docker:
-        - image: chef/inspec:latest
-      steps:
-        - checkout
-        - attach_workspace:
-            at: .
-        - run:
-            name: Test the deployed stack
-            command: |
-              cat output.json
-              mkdir aws-security/files || true
-              mkdir /tmp/test-results || true
-              cp output.json aws-security/files/output.json
-              inspec detect -t aws://
-              inspec exec aws-security --reporter=cli junit:/tmp/test-results/inspec-junit.xml -t aws://us-east-1
-        - store_test_results:
-            path: /tmp/test-results
+
 
 
 workflows:
