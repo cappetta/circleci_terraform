@@ -1,4 +1,4 @@
- 
+Exploratory - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/exploratory.svg?style=svg)](https://circleci.com/gh/cappetta/circleci_terraform/tree/exploratory)  
 
 Stage - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/stage.svg?style=svg)](https://circleci.com/gh/cappetta/circleci_terraform/tree/stage)
 

@@ -57,9 +57,13 @@ alpine_setup: &alpine_setup
       apk upgrade
       apk add curl wget bash git
       apk add ruby ruby-bundler
+      apk add ruby ruby-dev make gcc libc-dev g++ rdoc
+      gem build inspec.gemspec
+      gem install inspec-*.gem
+
       rm -rf /var/cache/apk/*
       git clone https://github.com/inspec/inspec.git
-      gem install inspec
+      bundle install
 
 
 apply_job: &apply_job
