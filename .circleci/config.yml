@@ -71,7 +71,7 @@ apply_job: &apply_job
           terraform output -json > output.json
           mv circleci_terraform .circleci_terraform
 
-inspec-stack:
+inspec-stack: &inspec-stack
     docker:
       - image: chef/inspec:latest
     steps:
