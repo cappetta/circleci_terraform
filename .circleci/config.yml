@@ -49,7 +49,7 @@ terraform_init: &terraform_init
       cd environments/$TERRAFORM_ENVIRONMENT
       terraform init
 
-apline_setup: &apline_setup
+alpine_setup: &apline_setup
   run:
     name: apline_setup
     command: |
