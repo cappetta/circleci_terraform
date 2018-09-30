@@ -76,8 +76,6 @@ apply_job: &apply_job
     - *restore_repo
     - *set_terraform_environment
     - *terraform_init
-    - attach_workspace:
-        at: *working_directory
     - run:
         name: terraform apply
         command: |
@@ -106,7 +104,11 @@ apply_job: &apply_job
         name: Delete Terraform Assets
         when: on_fail
         command: |
+          pwd
+          ls
           terraform destroy -force
+    - attach_workspace:
+        at: *working_directory
 
 jobs:
 
