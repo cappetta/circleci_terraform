@@ -70,6 +70,8 @@ alpine_setup: &alpine_setup
       gem build inspec.gemspec
       gem install inspec-*.gem
       bundle install
+      aws s3 rm s3://automatedcybersolutions-stage
+      aws s3 rm s3://state-file-bucket
 
 
 apply_job: &apply_job
@@ -78,6 +80,7 @@ apply_job: &apply_job
     - *restore_repo
     - *set_terraform_environment
     - *terraform_init
+    - *alpine_setup
     - attach_workspace:
         at: *working_directory
     - run:
