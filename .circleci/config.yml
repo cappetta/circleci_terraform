@@ -57,7 +57,7 @@ alpine_setup: &alpine_setup
       apk upgrade
       apk add curl wget bash git
       apk add ruby ruby-bundler
-      apk add ruby ruby-dev make gcc libc-dev g++ rdoc
+      apk add ruby ruby-dev make gcc libc-dev g++ ruby-rdoc
       gem build inspec.gemspec
       gem install inspec-*.gem
 
