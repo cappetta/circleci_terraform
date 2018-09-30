@@ -145,6 +145,7 @@ jobs:
   apply:
     <<: *apply_job
     steps:
+      - checkout
       - *alpine_setup
       - run:
           name: Inspec the AWS assets
