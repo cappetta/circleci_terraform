@@ -11,6 +11,7 @@ working_directory: &working_directory
 default_config: &default_config
   docker:
     - image: *base_image
+    - image: *inspect_image
   working_directory: *working_directory
   environment:
     BASH_ENV: /root/.bashrc
@@ -71,15 +72,16 @@ apply_job: &apply_job
           terraform output -json > output.json
           mv circleci_terraform .circleci_terraform
 
+
+
 inspec-stack: &inspec-stack
-    docker:
-      - image: chef/inspec:latest
     steps:
       - attach_workspace:
           at: *working_directory
       - run:
           name: Test the deployed stack
           command: |
+            curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
             cat output.json
             mkdir aws-security/files || true
             mkdir /tmp/test-results || true
