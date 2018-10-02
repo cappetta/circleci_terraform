@@ -150,7 +150,6 @@ jobs:
       - *restore_repo
       - *set_terraform_environment
       - *terraform_init
-      - *alpine_setup
       - run:
           name: terraform plan
           command: |
