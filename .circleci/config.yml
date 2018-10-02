@@ -80,7 +80,6 @@ apply_job: &apply_job
     - *restore_repo
     - *set_terraform_environment
     - *terraform_init
-    - *alpine_setup
     - attach_workspace:
         at: *working_directory
     - run:
@@ -151,6 +150,7 @@ jobs:
       - *restore_repo
       - *set_terraform_environment
       - *terraform_init
+      - *alpine_setup
       - run:
           name: terraform plan
           command: |
