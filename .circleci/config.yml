@@ -95,7 +95,7 @@ apply_job: &apply_job
           terraform apply --auto-approve ../../terraform.plan
           terraform output -json > /tmp/output.json
           mv circleci_terraform .circleci_terraform
-
+    - *alpine_setup
     - run:
         name: Inspec the AWS assets
         command: |
@@ -150,6 +150,7 @@ jobs:
       - *restore_repo
       - *set_terraform_environment
       - *terraform_init
+      - *alpine_setup
       - run:
           name: terraform plan
           command: |
