@@ -71,15 +71,15 @@ alpine_setup: &alpine_setup
       gem install inspec-*.gem
       bundle install
       echo "checking for directory..."
-      aws s3 ls s3://automatedcybersolutions-stage
-      if [ $? -eq 0 ]; then
-        aws s3 rm s3://automatedcybersolutions-stage;
-      fi
-      echo "checking for file"
-      aws s3 ls s3://state-file-bucket
-      if [ $? -eq 0 ]; then
-        aws s3 rm s3://state-file-bucket
-      fi
+#      aws s3 ls s3://automatedcybersolutions-stage
+#      if [ $? -eq 0 ]; then
+#        aws s3 rm s3://automatedcybersolutions-stage;
+#      fi
+#      echo "checking for file"
+#      aws s3 ls s3://state-file-bucket
+#      if [ $? -eq 0 ]; then
+#        aws s3 rm s3://state-file-bucket
+#      fi
 
 
 apply_job: &apply_job
