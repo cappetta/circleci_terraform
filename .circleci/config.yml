@@ -60,7 +60,7 @@ alpine_setup: &alpine_setup
       apk upgrade
       apk add curl wget bash git
       apk add ruby ruby-bundler
-      apk add ruby ruby-dev make gcc libc-dev g++ python python-dev py-pip build-base ruby-rdoc
+      apk add ruby ruby-dev make gcc libc-dev g++ python python-dev py-pip build-base ruby-rdoc minitar-cli
       pip install awscli
       apk --purge -v del py-pip
       rm -rf /var/cache/apk/*
@@ -71,10 +71,7 @@ alpine_setup: &alpine_setup
       gem install inspec-*.gem
       bundle install
       echo "checking for directory..."
-      aws s3 ls s3://state-file-bucket
-      if [ $? -eq 0 ]; then
-        aws s3 rm s3://state-file-bucket
-      fi
+
 
 
 apply_job: &apply_job
@@ -99,6 +96,10 @@ apply_job: &apply_job
           terraform apply --auto-approve ../../terraform.plan
           terraform output -json > /tmp/output.json
           mv circleci_terraform .circleci_terraform
+          aws s3 ls s3://state-file-bucket
+          if [ $? -eq 0 ]; then
+            aws s3 rm s3://state-file-bucket
+          fi
     - run:
         name: Inspec the AWS assets
         command: |
