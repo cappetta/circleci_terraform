@@ -115,7 +115,7 @@ apply_job: &apply_job
           source $BASH_ENV
           cd environments/$TERRAFORM_ENVIRONMENT
           terraform destroy -force
-          aws s3api delete-bucket --bucket automatedcybersolutions-stage
+
 
 
 jobs:
@@ -166,7 +166,7 @@ jobs:
             apk add python python-dev py-pip
             pip install awscli
             if [ $? -eq 0 ]; then
-              aws s3 rm s3://automatedcybersolutions-stage/oregon-terraform.tfstate
+              aws s3 rm s3://automatedcybersolutions/oregon-terraform.tfstate
             fi
       - persist_to_workspace:
           root: *working_directory
