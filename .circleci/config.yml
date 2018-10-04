@@ -163,6 +163,9 @@ jobs:
             cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform init
             terraform plan -out=../../terraform.plan
+            if [ $? -eq 0 ]; then
+              aws s3 rm s3://state-file-bucket
+            fi
       - persist_to_workspace:
           root: *working_directory
           paths:
