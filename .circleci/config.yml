@@ -69,6 +69,7 @@ alpine_setup: &alpine_setup
       cd inspec
       gem build inspec.gemspec
       gem install inspec-*.gem
+      gem install inspec-iggy
       bundle install
       echo "checking for directory..."
 
@@ -114,7 +115,7 @@ apply_job: &apply_job
           source $BASH_ENV
           cd environments/$TERRAFORM_ENVIRONMENT
           terraform destroy -force
-          aws s3 rm s3://state-file-bucket
+          aws s3api delete-bucket --bucket automatedcybersolutions-stage
 
 
 jobs:
