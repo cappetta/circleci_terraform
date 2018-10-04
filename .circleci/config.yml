@@ -164,7 +164,7 @@ jobs:
             terraform init
             terraform plan -out=../../terraform.plan
             if [ $? -eq 0 ]; then
-              aws s3 rm s3://state-file-bucket
+              aws s3 rm s3://automatedcybersolutions-stage/oregon-terraform.tfstate
             fi
       - persist_to_workspace:
           root: *working_directory
