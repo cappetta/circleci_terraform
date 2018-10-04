@@ -4,3 +4,8 @@ aws.yaml
 .pem
 keys
 .terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars

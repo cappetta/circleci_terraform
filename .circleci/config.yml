@@ -43,6 +43,10 @@ set_terraform_environment: &set_terraform_environment
       else
         echo 'export TERRAFORM_ENVIRONMENT=staging' >> $BASH_ENV
       fi
+      EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
+      EC2_REGION="`echo \"$EC2_AVAIL_ZONE\" | sed 's/[a-z]$//'`"
+      echo 'export EC2_AVAIL_ZONE=$EC2_AVAIL_ZONE'
+      echo 'export EC2_REGION=$EC2_REGION'
 
 terraform_init: &terraform_init
   run:
@@ -150,7 +154,6 @@ jobs:
       - *restore_repo
       - *set_terraform_environment
       - *terraform_init
-      - *alpine_setup
       - run:
           name: terraform plan
           command: |
@@ -163,6 +166,8 @@ jobs:
             cd ../environments/$TERRAFORM_ENVIRONMENT
             terraform init
             terraform plan -out=../../terraform.plan
+            apk add python python-dev py-pip
+            pip install awscli
             if [ $? -eq 0 ]; then
               aws s3 rm s3://automatedcybersolutions-stage/oregon-terraform.tfstate
             fi
