@@ -7,22 +7,13 @@ module "staging-state" {
   environment = "${var.environment}"
 }
 
-resource "aws_s3_bucket" "b" {
-  bucket = "automatedcybersolutions-stage"
-  acl    = "private"
-
-  tags {
-    Name        = "Terraform State File bucket"
-    Environment = "${var.environment}"
-  }
-}
 
 
 terraform {
   backend "s3" {
-    bucket  = "automatedcybersolutions-stage"
+    bucket  = "automatedcybersolutions"
     key     = "oregon-terraform.tfstate"
-    region  = "us-west-2"
+    region  = "us-east-1"
     encrypt = true
   }
 }
