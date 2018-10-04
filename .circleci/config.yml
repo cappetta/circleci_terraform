@@ -43,10 +43,6 @@ set_terraform_environment: &set_terraform_environment
       else
         echo 'export TERRAFORM_ENVIRONMENT=staging' >> $BASH_ENV
       fi
-      EC2_AVAIL_ZONE=`curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone`
-      EC2_REGION=`echo \"$EC2_AVAIL_ZONE\" | sed 's/[a-z]$//'`
-      echo 'export EC2_AVAIL_ZONE=$EC2_AVAIL_ZONE'
-      echo 'export EC2_REGION=$EC2_REGION'
 
 terraform_init: &terraform_init
   run:
