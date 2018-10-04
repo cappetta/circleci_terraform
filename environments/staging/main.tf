@@ -7,6 +7,17 @@ module "staging-state" {
   environment = "${var.environment}"
 }
 
+resource "aws_s3_bucket" "b" {
+  bucket = "automatedcybersolutions-stage"
+  acl    = "private"
+
+  tags {
+    Name        = "Terraform State File bucket"
+    Environment = "${var.environment}"
+  }
+}
+
+
 terraform {
   backend "s3" {
     bucket  = "automatedcybersolutions-stage"
@@ -20,12 +31,12 @@ module "staging-infrastructure" {
   source      = "../../modules/infrastructure"
   environment = "${var.environment}"
 }
-//
-//output "web-alb-dns-name" {
-//  value = "${module.staging-infrastructure.web-alb-dns-name}"
-//}
-//
-//output "web-instance-ips" {
-//  value = "${module.staging-infrastructure.web-instance-ips}"
-//}
+
+output "web-alb-dns-name" {
+  value = "${module.staging-infrastructure.web-alb-dns-name}"
+}
+
+output "web-instance-ips" {
+  value = "${module.staging-infrastructure.web-instance-ips}"
+}
 
