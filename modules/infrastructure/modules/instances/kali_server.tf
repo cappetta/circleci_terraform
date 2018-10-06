@@ -35,16 +35,4 @@ resource "null_resource" "kali" {
     private_key = "${file("../../keys/circleci_terraform")}"
     host        = "${element(aws_instance.kali.*.public_ip, count.index)}"
   }
-//
-//  provisioner "file" {
-//    content     = "${data.template_file.init.rendered}"
-//    destination = "/home/ubuntu/init.sh"
-//  }
-
-//  provisioner "remote-exec" {
-//    inline = [
-//      "chmod +x /home/ubuntu/init.sh",
-//      "sudo /home/ubuntu/init.sh",
-//    ]
-//  }
 }
