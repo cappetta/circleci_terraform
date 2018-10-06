@@ -70,3 +70,7 @@ variable "private_key" {
   default = "../../keys/circleci_terraform"
 }
 
+variable "alarms_email" {
+  description = ""
+  default = "your"
+}

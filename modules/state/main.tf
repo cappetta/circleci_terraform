@@ -8,6 +8,10 @@ resource "aws_s3_bucket" "state-file-bucket" {
   tags {
     environment = "${var.environment}"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_dynamodb_table" "state-file-locking-table" {

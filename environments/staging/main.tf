@@ -7,11 +7,13 @@ module "staging-state" {
   environment = "${var.environment}"
 }
 
+
+
 terraform {
   backend "s3" {
-    bucket  = "automatedcybersolutions-stage"
+    bucket  = "automatedcybersolutions"
     key     = "oregon-terraform.tfstate"
-    region  = "us-west-2"
+    region  = "us-east-1"
     encrypt = true
   }
 }
@@ -20,12 +22,12 @@ module "staging-infrastructure" {
   source      = "../../modules/infrastructure"
   environment = "${var.environment}"
 }
-//
-//output "web-alb-dns-name" {
-//  value = "${module.staging-infrastructure.web-alb-dns-name}"
-//}
-//
-//output "web-instance-ips" {
-//  value = "${module.staging-infrastructure.web-instance-ips}"
-//}
+
+output "web-alb-dns-name" {
+  value = "${module.staging-infrastructure.web-alb-dns-name}"
+}
+
+output "web-instance-ips" {
+  value = "${module.staging-infrastructure.web-instance-ips}"
+}
 

@@ -30,10 +30,10 @@ resource "aws_inspector_assessment_template" "foo" {
 
 
   rules_package_arns = [
-    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-D5TGAxiR",
-    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-Vkd2Vxjq",
-    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-asL6HRgN",
-    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-P8Tel2Xj",
+//    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-D5TGAxiR",
+//    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-Vkd2Vxjq",
+//    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-asL6HRgN",
+//    "arn:aws:inspector:ap-southeast-2:454640832652:rulespackage/0-P8Tel2Xj",
   ]
 }
 

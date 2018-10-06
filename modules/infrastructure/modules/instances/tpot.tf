@@ -53,10 +53,10 @@ resource "null_resource" "tpot" {
   }
 }
 
-resource "null_resource" "tpot_tag_as_complete" {
-  depends_on = ["null_resource.tpot"]
-  tags {
-    Zombie = "False"
-    Complete = "True"
-  }
-}
+//resource "null_resource" "tpot_tag_as_complete" {
+//  depends_on = ["null_resource.tpot"]
+//  tags {
+//    Zombie = "False"
+//    Complete = "True"
+//  }
+//}

@@ -1,4 +1,4 @@
- 
+Exploratory - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/exploratory.svg?style=svg)](https://circleci.com/gh/cappetta/circleci_terraform/tree/exploratory)  
 
 Stage - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/stage.svg?style=svg)](https://circleci.com/gh/cappetta/circleci_terraform/tree/stage)
 
@@ -7,15 +7,20 @@ Master - [![CircleCI](https://circleci.com/gh/cappetta/circleci_terraform/tree/m
 known issues:
     - https://github.com/hashicorp/terraform/issues/16120
 
-# circleci_terraform
-Just an unofficial fork of the terraform-with-circleci-example, slightly enhanced and expanded with SecDevOps tooling & assets.
+# Overview
+This started as an unofficial fork of the terraform-with-circleci-example
+and was slightly enhanced and expanded to create SecDevOps tooling & assets
+in one or many AWS cloud environments.
+
+The simple goal is to create a repository of assets which aid the security
+researcher by leveraging the elastic compute potential of AWS. 
 
 ## Security Assets
     - docker 
         - webgoat
     - kali
     - t-pot
-    - AWS Inspector
+    - AWS Inspector (note some regions are indicating the rules are non-existant)
     - FBCTF
 
 ## AMI's
@@ -40,4 +45,7 @@ Just an unofficial fork of the terraform-with-circleci-example, slightly enhance
     ### VPC's
     
     ### LoadBalancers
+    
+    ### Lambda Functions
+    
     
